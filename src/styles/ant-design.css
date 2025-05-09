@@ -1,0 +1,178 @@
+
+/* Ant Design custom styles */
+.ant-btn-primary {
+  background-color: hsl(var(--primary-600)) !important;
+}
+
+.ant-btn-primary:hover {
+  background-color: hsl(var(--primary-700)) !important;
+}
+
+/* Card styles */
+.ant-card {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  border: 1px solid hsla(var(--primary-100), 0.6) !important;
+}
+
+/* Menu styles */
+.ant-menu-item-selected {
+  color: hsl(var(--primary-600)) !important;
+}
+
+/* Form styles */
+.ant-form-item-label > label {
+  font-weight: 500;
+  color: hsl(var(--primary-800)) !important;
+}
+
+/* Typography styles */
+.ant-typography {
+  color: hsl(var(--foreground));
+}
+
+.ant-typography h1, .ant-typography h2, .ant-typography h3 {
+  color: hsl(var(--primary-800)) !important;
+}
+
+.ant-typography-secondary {
+  color: hsl(var(--primary-600)) !important;
+}
+
+/* Input styles */
+.ant-input:hover, .ant-input:focus {
+  border-color: hsl(var(--primary-600)) !important;
+}
+
+.ant-input-affix-wrapper:hover,
+.ant-input-affix-wrapper-focused {
+  border-color: hsl(var(--primary-600)) !important;
+}
+
+/* Select styles */
+.ant-select-focused .ant-select-selector {
+  border-color: hsl(var(--primary-600)) !important;
+  box-shadow: 0 0 0 2px hsla(var(--primary), 0.2) !important;
+}
+
+.ant-select-dropdown {
+  border: 1px solid hsla(var(--primary-100), 0.6) !important;
+  border-radius: 8px !important;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+.ant-select-item-option-selected {
+  background-color: hsla(var(--primary-50), 0.6) !important;
+  color: hsl(var(--primary-700)) !important;
+}
+
+.ant-select-item-option-active {
+  background-color: hsla(var(--primary-50), 0.3) !important;
+}
+
+/* Switch styles */
+.ant-switch-checked {
+  background-color: hsl(var(--primary-600)) !important;
+}
+
+/* Checkbox styles */
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: hsl(var(--primary-600)) !important;
+  border-color: hsl(var(--primary-600)) !important;
+}
+
+/* Radio styles */
+.ant-radio-checked .ant-radio-inner {
+  border-color: hsl(var(--primary-600)) !important;
+}
+
+.ant-radio-inner::after {
+  background-color: hsl(var(--primary-600)) !important;
+}
+
+.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+  border-color: hsl(var(--primary-600)) !important;
+  color: hsl(var(--primary-600)) !important;
+}
+
+.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)::before {
+  background-color: hsl(var(--primary-600)) !important;
+}
+
+.ant-radio-button-wrapper:hover {
+  color: hsl(var(--primary-600)) !important;
+}
+
+/* Settings page specific styles */
+.ant-settings-layout {
+  background: transparent;
+}
+.ant-settings-layout .ant-layout-content {
+  background: transparent;
+}
+.ant-settings-card {
+  min-height: 500px;
+  border-radius: 0 8px 8px 0;
+}
+.ant-menu-item-selected {
+  background-color: hsl(var(--primary-50)) !important;
+}
+
+/* Table styles */
+.ant-table-thead > tr > th {
+  background-color: hsla(var(--primary-50), 0.6) !important;
+  color: hsl(var(--primary-800)) !important;
+  font-weight: 500;
+}
+
+.ant-table-tbody > tr.ant-table-row:hover > td {
+  background-color: hsla(var(--primary-50), 0.3) !important;
+}
+
+.ant-table-container table > thead > tr:first-child > *:first-child {
+  border-start-start-radius: 8px !important;
+}
+
+.ant-table-container table > thead > tr:first-child > *:last-child {
+  border-start-end-radius: 8px !important;
+}
+
+/* Pagination styles */
+.ant-pagination-item-active {
+  border-color: hsl(var(--primary-600)) !important;
+}
+
+.ant-pagination-item-active a {
+  color: hsl(var(--primary-600)) !important;
+}
+
+.ant-pagination-item:hover {
+  border-color: hsl(var(--primary-600)) !important;
+}
+
+.ant-pagination-item:hover a {
+  color: hsl(var(--primary-600)) !important;
+}
+
+.ant-pagination-prev:hover .ant-pagination-item-link,
+.ant-pagination-next:hover .ant-pagination-item-link {
+  border-color: hsl(var(--primary-600)) !important;
+  color: hsl(var(--primary-600)) !important;
+}
+
+/* Button hover effects */
+.ant-btn:not(.ant-btn-primary):hover {
+  color: hsl(var(--primary-600)) !important;
+  border-color: hsl(var(--primary-200)) !important;
+}
+
+/* Hide scrollbar but allow scrolling */
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari and Opera */
+}
