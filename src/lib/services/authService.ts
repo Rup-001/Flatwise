@@ -2,9 +2,19 @@
 import { apiRequest } from '../apiClient';
 import { ENDPOINTS } from '../endpoints';
 import ErrorLogger from '../errorLogger';
+console.log("auth service 1111")
 
+
+export const checkUserAvailability = async (email: string, phone: string) => {
+  return apiRequest<{ email: boolean; phone: boolean }>(
+    `${ENDPOINTS.USERS}/check-availability`,
+    "POST",
+    { email, phone }
+  );
+};
 // Types
 export interface AuthResponse {
+  
   access_token: string;
   user: {
     id: number;
@@ -42,6 +52,7 @@ export const mapRoleIdToString = (roleId: number): "admin" | "owner" | "resident
     case USER_ROLES.OWNER: return "owner";
     case USER_ROLES.RESIDENT: return "resident";
     default: return "resident"; // Default fallback
+    console.log("auth service 444")
   }
 };
 
@@ -52,10 +63,15 @@ export const registerUser = async (userData: {
   email: string;
   phone: string;
   password: string;
+  confirmPassword: string;
   society_id?: number;
 }) => {
+  console.log("auth service 2222")
+  const callId = Math.random().toString(36).substring(2, 8); // Unique call ID
+  console.log(`auth service 2222 [callId: ${callId}]`);
+  console.log(`Registering user with data [callId: ${callId}]:`, userData);
   // Validate required fields
-  const requiredFields = ['firstName', 'lastName', 'email', 'phone', 'password'] as const;
+  const requiredFields = ['firstName', 'lastName', 'email', 'phone', 'password', 'confirmPassword', 'society_id'] as const;
   
   // Improved type-safe filtering of missing fields
   const missingFields = requiredFields.filter(field => {
@@ -95,7 +111,8 @@ export const registerUser = async (userData: {
     society_id: userData.society_id || 1, // Will be updated after society creation
     status: "ACTIVE"
   };
-  
+  console.log("auth service 333")
   console.log("Registering user with data:", requestData);
+  console.log(`auth service 333 [callId: ${callId}]`);
   return apiRequest<any>(ENDPOINTS.USERS, "POST", requestData);
 };

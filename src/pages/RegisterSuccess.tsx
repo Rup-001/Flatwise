@@ -6,6 +6,7 @@ import { CheckCircle, Loader, Home, AlertCircle } from 'lucide-react';
 import { completeRegistration } from '@/lib/api';
 import { toast } from 'sonner';
 import { useRegistration } from '@/context/RegistrationContext';
+import { useRef } from 'react';
 
 const RegisterSuccess = () => {
   const navigate = useNavigate();
@@ -13,11 +14,24 @@ const RegisterSuccess = () => {
   const [registrationComplete, setRegistrationComplete] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { state: registrationData } = useRegistration();
+  const hasRun = useRef(false);
   
   useEffect(() => {
+    if (hasRun.current) return; // prevent duplicate runs
+    hasRun.current = true;
+    console.log("reg success page 1111 [useEffect run]");
+    console.log("reg success page  1111")
+    if (!registrationData?.owner?.email || !registrationData?.owner?.password || !registrationData?.flats?.length) {
+      setError('Registration data is incomplete. Please complete the registration process.');
+      setIsProcessing(false);
+      toast.error('Incomplete registration data');
+      return;
+    }
     const processRegistration = async () => {
       try {
-        if (!registrationData.owner || !registrationData.building) {
+        console.log("reg success page  2222")
+        console.log("registrationData.owner", registrationData.owner)
+        if (!registrationData.owner) {
           setError('Registration data not found. Please complete the registration process first.');
           setIsProcessing(false);
           toast.error('Registration data not found');
@@ -27,6 +41,8 @@ const RegisterSuccess = () => {
         console.log("Using registration data:", registrationData);
         
         await completeRegistration(registrationData);
+        setRegistrationComplete(true);
+        localStorage.removeItem('registrationData');
         toast.success('Registration completed successfully!');
         
         // Auto-redirect to login after 5 seconds
@@ -34,16 +50,16 @@ const RegisterSuccess = () => {
           navigate('/login');
         }, 5000);
       } catch (error: any) {
-        console.error('Error completing registration:', error);
-        setError(error.message || 'Failed to complete registration');
-        toast.error(error.message || 'Failed to complete registration');
+        console.error('Error completing registration reg succ page:', error);
+        setError(error.message || 'Failed to complete registration reg success');
+        toast.error(error.message || 'Failed to complete registration reg success');
       } finally {
         setIsProcessing(false);
       }
     };
     
     processRegistration();
-  }, [navigate, registrationData]);
+  }, []);
   
   const handleTryAgain = async () => {
     setIsProcessing(true);

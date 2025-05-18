@@ -82,7 +82,7 @@ class ErrorLogger {
       
       toast.error(detailedMessage, {
         description: context?.endpoint 
-          ? `API Error on ${context.endpoint}`
+          ? `API Error logger on ${context.endpoint}`
           : undefined,
         duration: 5000,
       });

@@ -1,7 +1,8 @@
 
 // Export the API_BASE_URL
+export const API_BASE_URL = "http://localhost:3000";
 // export const API_BASE_URL = "https://api.flatwise.tanapps.com";
-export const API_BASE_URL = "https://raccoon-eternal-surely.ngrok-free.app";
+// export const API_BASE_URL = "https://raccoon-eternal-surely.ngrok-free.app";
 
 // API endpoints
 export const ENDPOINTS = {
@@ -12,6 +13,7 @@ export const ENDPOINTS = {
   BILLS: `${API_BASE_URL}/bills`,  
   PAYMENTS: `${API_BASE_URL}/payments`,
   AUTH: `${API_BASE_URL}/auth`,
+  FORGOT_PASSWORD: `${API_BASE_URL}/forgot-password`,
   SOCIETIES: `${API_BASE_URL}/societies`,
   USERS_INVITE_BULK: `${API_BASE_URL}/users/invite/bulk`,
   FLATS_BULK: `${API_BASE_URL}/flats/bulk`,

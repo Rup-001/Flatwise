@@ -18,6 +18,7 @@ import { createFlatsBulk } from './services/userService';
 import ErrorLogger from './errorLogger';
 
 export const completeRegistration = async (registrationData: any) => {
+  console.log("api 111")
   try {
     if (!registrationData) {
       throw new Error('Missing registration data');
@@ -26,32 +27,15 @@ export const completeRegistration = async (registrationData: any) => {
     console.log("Starting registration completion with data:", registrationData);
     
     // Extract data in the expected format
-    const buildingInfo = registrationData.building || {};
+    // const buildingInfo = registrationData.building || {};
     const ownerData = registrationData.owner || {};
     const flatsData = registrationData.flats || [];
 
-    if (!buildingInfo || !ownerData) {
-      throw new Error('Missing essential registration data (building info or owner data)');
+    if ( !ownerData) {
+      throw new Error('Missing essential registration data ( owner data)');
     }
 
-    // 1. Create society
-    console.log("Creating society...");
-    const societyData = {
-      buildingName: buildingInfo.name,
-      address: buildingInfo.address,
-      city: buildingInfo.city,
-      postcode: buildingInfo.postal_code,
-      totalFlats: buildingInfo.total_flats
-    };
     
-    console.log("Society data prepared:", societyData);
-    const societyResponse = await createSociety(societyData);
-
-    console.log("Society created:", societyResponse);
-    
-    if (!societyResponse || !societyResponse.id) {
-      throw new Error("Failed to create society or missing society ID");
-    }
 
     // 2. Create admin user
     console.log("Creating admin user...");
@@ -61,7 +45,8 @@ export const completeRegistration = async (registrationData: any) => {
       email: ownerData.email,
       phone: ownerData.phone,
       password: ownerData.password,
-      society_id: societyResponse.id
+      confirmPassword: ownerData.password,
+      society_id: ownerData.society_id,
     });
 
     console.log("Admin user created:", userResponse);
@@ -86,21 +71,22 @@ export const completeRegistration = async (registrationData: any) => {
     
     const flatsResponse = await createFlatsBulk(
       formattedFlats,
-      societyResponse.id,
+      ownerData.society_id,
       userMap
     );
 
     console.log("Flats created:", flatsResponse);
 
     return {
-      society: societyResponse,
+      society: ownerData.society_id,
       admin: userResponse,
-      flats: flatsResponse
+      flats: flatsResponse || []
     };
   } catch (error: any) {
     const errorMessage = error.message || "Failed to complete registration";
+    console.log(" bulkflatcreate api.ts error", error)
     ErrorLogger.log(
-      'Registration completion error',
+      'Registration completion error api.ts',
       'error',
       error instanceof Error ? error : new Error(errorMessage)
     );

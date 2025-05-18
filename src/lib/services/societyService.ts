@@ -7,6 +7,9 @@ export const createSociety = async (societyData: {
   buildingName: string;
   address: string;
   city: string;
+  state: string;
+  country: string;
+
   postcode: string;
   totalFlats: number;
 }) => {

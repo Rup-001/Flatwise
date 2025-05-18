@@ -54,6 +54,8 @@ import {
 import ErrorLogger from '@/lib/errorLogger';
 import { Checkbox } from '@/components/ui/checkbox';
 
+import { checkUserAvailability } from '@/lib/services/authService';
+
 const ownerSchema = z.object({
   firstName: z.string().min(2, 'First name is required'),
   lastName: z.string().min(2, 'Last name is required'),
@@ -61,6 +63,7 @@ const ownerSchema = z.object({
   phone: z.string().min(10, 'Please enter a valid phone number'),
   password: z.string().min(8, 'Password must be at least 8 characters'),
   confirmPassword: z.string().min(8, 'Confirm password is required'),
+  society_id: z.number().optional(),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",
   path: ["confirmPassword"],
@@ -70,8 +73,12 @@ const buildingSchema = z.object({
   buildingName: z.string().min(2, 'Building name is required'),
   address: z.string().min(5, 'Address is required'),
   city: z.string().min(2, 'City is required'),
-  postcode: z.string().min(5, 'Valid postcode is required'),
+  postcode: z.string().min(4, 'Valid postcode is required'),
+
   totalFlats: z.coerce.number().min(1, 'At least 1 flat is required'),
+  // state: z.string().min(2, 'State is required'),
+  // country: z.string().min(2, 'Country is required'),
+  // society_id: z.coerce.number().min(1, 'At least 1 flat is required'),
 });
 
 const paymentSchema = z.object({
@@ -110,6 +117,9 @@ const Register: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [pricingInfo, setPricingInfo] = useState<PaymentResponse | null>(null);
   const { state: registrationState, setOwnerData, setBuildingData, setFlatsData } = useRegistration();
+  const [createdSocietyId, setCreatedSocietyId] = useState<number | null>(null);
+  const building = registrationState.building;
+  const owner = registrationState.owner;
   
   const [formData, setFormData] = useState<RegisterFormData>({
     owner: {
@@ -152,42 +162,222 @@ const Register: React.FC = () => {
     });
   }, []);
   
-  const handleOwnerSubmit = async (data: OwnerFormValues) => {
-    const ownerData: OwnerFormValues = {
-      firstName: data.firstName,
-      lastName: data.lastName,
-      email: data.email,
-      phone: data.phone,
-      password: data.password,
-      confirmPassword: data.confirmPassword
-    };
+  // const handleOwnerSubmit = async (data: OwnerFormValues) => {
+  //   const ownerData: OwnerFormValues = {
+  //     firstName: data.firstName,
+  //     lastName: data.lastName,
+  //     email: data.email,
+  //     phone: data.phone,
+  //     password: data.password,
+  //     confirmPassword: data.confirmPassword
+  //   };
     
-    setFormData(prev => ({ ...prev, owner: ownerData }));
-    setOwnerData(ownerData);
-    setCurrentStep(2);
-  };
+  //   setFormData(prev => ({ ...prev, owner: ownerData }));
+  //   setOwnerData(ownerData);
+  //   setCurrentStep(2);
+  // };
 
+  //my changes
+  // const handleOwnerSubmit = async (data: OwnerFormValues) => {
+  //   setIsLoading(true);
+
+  //   if (!createdSocietyId) {
+  //     toast.error("Society ID missing. Please submit building info first.");
+  //     return;
+  //   }
+    
+  //   try {
+  //     const response = await registerUser({
+  //       firstName: data.firstName,
+  //     lastName: data.lastName,
+  //     email: data.email,
+  //     phone: data.phone,
+  //     password: data.password,
+  //     confirmPassword: data.confirmPassword,
+  //     society_id: createdSocietyId
+  //     })
+  //     setOwnerData(response);
+  //   } catch (error) {
+  //     console.log("catch block", error)
+  //   }
+    
+  //   const ownerData: OwnerFormValues = {
+  //     firstName: data.firstName,
+  //     lastName: data.lastName,
+  //     email: data.email,
+  //     phone: data.phone,
+  //     password: data.password,
+  //     confirmPassword: data.confirmPassword,
+  //   };
+    
+  //   setFormData(prev => ({ ...prev, owner: ownerData }));
+    
+  //   setCurrentStep(2);
+  // };
+
+  //chtgpt changes
+
+  // const handleOwnerSubmit = async (data: OwnerFormValues) => {
+  // setIsLoading(true);
+
+  //   if (!createdSocietyId) {
+  //     toast.error("Society ID missing. Please submit building info first.");
+  //     return;
+  //   }
+    
+  //   // try {
+  //   //   const response = await registerUser({
+  //   //     firstName: data.firstName,
+  //   //   lastName: data.lastName,
+  //   //   email: data.email,
+  //   //   phone: data.phone,
+  //   //   password: data.password,
+  //   //   confirmPassword: data.confirmPassword,
+  //   //   society_id: createdSocietyId
+  //   //   })
+      
+  //   //   setOwnerData(response);
+  //   //   console.log("setOwnerData", response)
+  //   // } catch (error: any) {
+  //   //   console.log("catch block", error);
+  //   //   throw new Error(error.message);
+  //   // }
+  //   const ownerData: OwnerFormValues = {
+  //     firstName: data.firstName,
+  //     lastName: data.lastName,
+  //     email: data.email,
+  //     phone: data.phone,
+  //     password: data.password,
+  //     confirmPassword: data.confirmPassword,
+  //     society_id: createdSocietyId
+  //   };
+  //   setOwnerData(ownerData);
+  //   console.log("ownerData in reg page", ownerData)
+  //   setFormData(prev => ({ ...prev, owner: ownerData }));
+
+
+  
+  //   try {
+  //     // 2. Calculate price now
+  //     const priceResponse = await calculatePrice({
+  //       name: building.name,
+  //       address: building.address,
+  //       city: building.city,
+  //       state: building.state,
+  //       country: building.country,
+  //       postal_code: building.postal_code,
+  //       location_lat: 23.8,
+  //       location_lng: 90.4,
+  //       flats: Array(building.totalFlats).fill(0).map((_, i) => ({
+  //         number: `Flat ${i + 1}`,
+  //         flat_type: 'TWO_BHK'
+  //       })),
+  //       user_emails: [owner.email] // ✅ from context too, if needed
+  //     });
+  //     // setOwnerData(priceResponse)
+  //     console.log("priceResponse", priceResponse)
+  
+  //     setPricingInfo(priceResponse); // ✅ Show calculated pricing
+  //     setFormData(prev => ({ ...prev, owner: ownerData }));
+  //     setCurrentStep(2); // Move to payment
+  //   } catch (err) {
+  //     toast.error("Failed to calculate price.");
+  //     console.error("calculatePrice error", err);
+  //   }
+
+
+    
+  // };
+
+
+const handleOwnerSubmit = async (data: OwnerFormValues) => {
+  if (isLoading) return;
+  setIsLoading(true);
+
+  if (!createdSocietyId) {
+    toast.error("Society ID missing. Please submit building info first.");
+    return;
+  }
+
+  try {
+    // ✅ Step 1: Check if user already exists
+    const availability = await checkUserAvailability(data.email, data.phone);
+    console.log("Availability check result:", availability);
+
+    if (!availability.email) {
+      toast.error("Email is already in use.");
+      setIsLoading(false);
+      return;
+    }
+
+    if (!availability.phone) {
+      toast.error("Phone number is already in use.");
+      setIsLoading(false);
+      return;
+    }
+
+    // ✅ Step 2: Continue if available
+    const ownerData: OwnerFormValues = {
+      ...data,
+      society_id: createdSocietyId,
+    };
+
+    setOwnerData(ownerData);
+    setFormData(prev => ({ ...prev, owner: ownerData }));
+
+    const priceResponse = await calculatePrice({
+      name: building.name,
+      address: building.address,
+      city: building.city,
+      state: building.state,
+      country: building.country,
+      postal_code: building.postal_code,
+      location_lat: 23.8,
+      location_lng: 90.4,
+      flats: Array(building.totalFlats).fill(0).map((_, i) => ({
+        number: `Flat ${i + 1}`,
+        flat_type: 'TWO_BHK'
+      })),
+      user_emails: [ownerData.email]
+    });
+
+    console.log("Price response:", priceResponse);
+    setPricingInfo(priceResponse);
+    setCurrentStep(2);
+  } catch (err: any) {
+    toast.error("Mail address or phone number exists");
+    console.error("Validation error:", err);
+  } finally {
+    setIsLoading(false);
+  }
+};
+
+  
   const handleBuildingSubmit = async (data: BuildingFormValues) => {
     setIsLoading(true);
     
     try {
-      const response = await calculatePrice({
-        name: data.buildingName,
+      const response = await createSociety({
+        buildingName: data.buildingName,
         address: data.address,
         city: data.city,
         state: data.city + " Division",
         country: "Bangladesh",
-        postal_code: data.postcode,
-        location_lat: 23.8,
-        location_lng: 90.4,
-        flats: Array(data.totalFlats).fill(0).map((_, i) => ({
-          number: `Flat ${i + 1}`,
-          flat_type: 'TWO_BHK'
-        })),
-        user_emails: [formData.owner.email]
+        postcode: data.postcode,
+        totalFlats: data.totalFlats,
       });
+      setFlatsData(Array(data.totalFlats).fill(0).map((_, i) => ({
+        number: `Flat ${i + 1}`,
+        flat_type: 'TWO_BHK'
+      }))); // ✅ use the array where needed
+      if (response?.id) {
+        setCreatedSocietyId(response.id);
+      } else {
+        toast.error("Society creation failed (no ID returned)");
+        return;
+      }
       
-      setPricingInfo(response);
+          // setPricingInfo(response);
       setFormData(prev => ({ 
         ...prev, 
         building: data
@@ -200,7 +390,8 @@ const Register: React.FC = () => {
         state: data.city + " Division",
         country: "Bangladesh",
         postal_code: data.postcode,
-        totalFlats: data.totalFlats
+        totalFlats: data.totalFlats,
+        society_id: createdSocietyId
       });
       
       setFlatsData(Array(data.totalFlats).fill(0).map((_, i) => ({
@@ -217,34 +408,80 @@ const Register: React.FC = () => {
     }
   };
 
+  // const handleBuildingSubmit = async (data: BuildingFormValues) => {
+  //   setIsLoading(true);
+    
+  //   try {
+  //     const response = await calculatePrice({
+  //       name: data.buildingName,
+  //       address: data.address,
+  //       city: data.city,
+  //       state: data.city + " Division",
+  //       country: "Bangladesh",
+  //       postal_code: data.postcode,
+  //       location_lat: 23.8,
+  //       location_lng: 90.4,
+  //       flats: Array(data.totalFlats).fill(0).map((_, i) => ({
+  //         number: `Flat ${i + 1}`,
+  //         flat_type: 'TWO_BHK'
+  //       })),
+  //       user_emails: [formData.owner.email]
+  //     });
+      
+  //     setPricingInfo(response);
+  //     setFormData(prev => ({ 
+  //       ...prev, 
+  //       building: data
+  //     }));
+      
+  //     setBuildingData({
+  //       name: data.buildingName,
+  //       address: data.address,
+  //       city: data.city,
+  //       state: data.city + " Division",
+  //       country: "Bangladesh",
+  //       postal_code: data.postcode,
+  //       totalFlats: data.totalFlats
+  //     });
+      
+  //     setFlatsData(Array(data.totalFlats).fill(0).map((_, i) => ({
+  //       number: `Flat ${i + 1}`,
+  //       flat_type: "TWO_BHK"
+  //     })));
+      
+  //     setCurrentStep(1);
+  //   } catch (error) {
+  //     toast.error('Failed to calculate price. Please try again.');
+  //     console.error("Price calculation error:", error);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+
   const handlePaymentSubmit = async (data: PaymentFormValues) => {
     setIsLoading(true);
+    console.log("payment 1111111 ")
     try {
+      console.log("payment 22222 ")
       if (!pricingInfo) {
         toast.error('Price information is missing');
         return;
       }
-
+      console.log("payment 3333 ")
       const paymentResponse = await initiateRegistrationPayment({
+        
         email: formData.owner.email,
         amount: pricingInfo.total_price,
-        building_info: {
-          name: formData.building.buildingName,
-          address: formData.building.address,
-          city: formData.building.city,
-          country: "Bangladesh",
-          postal_code: formData.building.postcode,
-          flats: Array(formData.building.totalFlats).fill(0).map((_, i) => ({
-            number: `Flat ${i + 1}`,
-            flat_type: "TWO_BHK"
-          })),
-          user_emails: [formData.owner.email]
-        }
+        society_id: createdSocietyId,
       });
+      console.log("payment 4444 ")
 
-      if (paymentResponse.payment_url) {
+      if (paymentResponse) {
+        console.log("payment 5555 ")
         window.location.href = paymentResponse.payment_url;
+        console.log("paymentResponse", paymentResponse)
       } else {
+        console.log("payment 6666 ")
         toast.error('Payment URL not received');
       }
     } catch (error) {
@@ -500,6 +737,7 @@ const BuildingFormComponent: React.FC<BuildingFormProps> = ({ onSubmit, initialD
                   <FormLabel>Number of Flats</FormLabel>
                   <FormControl>
                     <Input 
+                      placeholder="1,2,3"
                       type="number" 
                       min={1}
                       {...field} 
@@ -535,11 +773,13 @@ const BuildingFormComponent: React.FC<BuildingFormProps> = ({ onSubmit, initialD
 
 interface PaymentFormProps {
   
+  
   onSubmit: (data: PaymentFormValues) => void;
   initialData: PaymentFormValues;
   pricingInfo: PaymentResponse | null;
   ownerEmail: string;
   buildingData: BuildingFormValues;
+  
 }
 
 const PaymentFormComponent: React.FC<PaymentFormProps> = ({ 
@@ -549,11 +789,14 @@ const PaymentFormComponent: React.FC<PaymentFormProps> = ({
   pricingInfo,
   ownerEmail,
   buildingData
-}) => {
+}
+) => {
   const form = useForm<PaymentFormValues>({
+    
     resolver: zodResolver(paymentSchema),
     defaultValues: initialData || {
       acceptTerms: false,
+      
     }
   });
 

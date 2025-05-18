@@ -200,6 +200,49 @@ export const useAuth = () => {
     }
   };
 
+  //send reset code
+
+  const sendResetCode = async (email: string) => {
+    setIsLoading(true);
+    try {
+      if (!email) {
+        throw new Error("Email is required");
+      }
+
+      const response = await apiRequest<{ message: string }>(
+        `${ENDPOINTS.FORGOT_PASSWORD}/forgot-password`,
+        "POST",
+        { email }
+      );
+
+      if (response.message) {
+        toast.success('Reset code sent to your email!');
+        return true;
+      } else {
+        throw new Error("Failed to send reset code");
+      }
+      // if (response.message) {
+      //   toast.success('Reset code sent to your email!');
+      //   return true;
+      // } else {
+      //   throw new Error("Failed to send reset code");
+      // }
+    } catch (error: any) {
+      const errorMessage = error.message || 'Failed to send reset code';
+      ErrorLogger.log(
+        'Send reset code error',
+        'error',
+        error instanceof Error ? error : new Error(errorMessage),
+        { email, endpoint: `${ENDPOINTS.AUTH}/forgot-password` }
+      );
+      toast.error(errorMessage);
+      return false;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+
   return {
     isLoading,
     isAuthenticated: auth.isAuthenticated,
@@ -207,6 +250,7 @@ export const useAuth = () => {
     login: handleLogin,
     logout: handleLogout,
     register: handleRegister,
+    sendResetCode
   };
 };
 

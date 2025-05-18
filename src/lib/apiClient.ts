@@ -23,7 +23,7 @@ const handleApiError = (error: any, endpoint: string) => {
     timestamp: new Date().toISOString()
   };
   
-  ErrorLogger.log(`API Error on ${endpoint}`, "error", error instanceof Error ? error : new Error(errorMessage), context);
+  console.log(`API clients Error on ${endpoint}`, "error", error instanceof Error ? error : new Error(errorMessage), context);
   
   return Promise.reject({
     message: errorMessage,

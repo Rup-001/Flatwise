@@ -8,6 +8,7 @@ export const useRegistration = () => {
   
   return {
     ...context,
+    
     // Override the setOwnerData function to ensure all required fields are present
     setOwnerData: (data: any) => {
       // Ensure all required fields are present with defaults if needed
@@ -18,6 +19,7 @@ export const useRegistration = () => {
         phone: data.phone || '',
         password: data.password || '',
         confirmPassword: data.confirmPassword || '',
+        society_id: data.society_id
       };
       
       context.setOwnerData(ownerData);

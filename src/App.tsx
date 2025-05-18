@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
+import ForgotPassword from './pages/ForgotPassword';
 import Register from './pages/Register';
 import NotFound from './pages/NotFound';
 import { AppProvider } from './context/AppContext';
@@ -49,6 +50,7 @@ function App() {
               {/* Public routes */}
               <Route path="/" element={<Index />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/ForgotPassword" element={<ForgotPassword />} />
               <Route path="/register" element={<Register />} />
               <Route path="/users/:userId/accept" element={<AcceptInvitation />} />
               <Route path="/accept-invitation" element={<AcceptInvitationByToken />} />
@@ -59,9 +61,9 @@ function App() {
               <Route path="/payment/cancelled" element={<PaymentCancelled />} />
               
               {/* Registration payment return URLs */}
-              <Route path="/register/success" element={<RegisterSuccess />} />
-              <Route path="/register/failed" element={<RegisterFailed />} />
-              <Route path="/register/cancelled" element={<RegisterCancelled />} />
+              <Route path="/subscription/success" element={<RegisterSuccess />} />
+              <Route path="/subscription/failed" element={<RegisterFailed />} />
+              <Route path="/subscription/cancelled" element={<RegisterCancelled />} />
               
               {/* Payment Due Route - accessible when payment is due */}
               <Route path="/payment-due" element={<PaymentDueRoute><PaymentDue /></PaymentDueRoute>} />

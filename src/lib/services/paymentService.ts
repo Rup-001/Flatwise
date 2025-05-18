@@ -108,32 +108,30 @@ export const initiateRegistrationPayment = async (data: {
   email: string;
   amount: number;
   promo_code?: string;
-  building_info: {
-    name: string;
-    address: string;
-    city: string;
-    country: string;
-    postal_code: string;
-    flats: Array<{
-      number: string;
-      flat_type: string;
-    }>;
-    user_emails: string[];
-  };
+  user_id?: number
+  society_id: number
+
+
 }) => {
   try {
     console.log("Initiating registration payment with data:", data);
     
+    // const response = await apiRequest(
+    // `${API_BASE_URL}/subscriptions/initiate`,
+    //   "POST",
+    //   data
+    // )
+      
     const response = await apiRequest<{
       payment_url: string;
       payment_id: number;
     }>(
-      `${API_BASE_URL}/registration-payments/initiate`,
+      `${API_BASE_URL}/subscriptions/initiate`,
       "POST",
       data
     );
     
-    if (!response || !response.payment_url) {
+    if (!response ) {
       throw new Error("No payment URL received from the server");
     }
     
