@@ -55,7 +55,7 @@ const Navbar = () => {
     menuItems.push({
       href: '/payment-due',
       label: 'Payment Due',
-      icon: <AlertCircle className="h-5 w-5 text-red-500" />,
+      // icon: <AlertCircle className="h-5 w-5 text-red-500" />,
     });
     
     // Only show subscription page to admins/owners when payment is due
@@ -63,20 +63,20 @@ const Navbar = () => {
       menuItems.push({
         href: '/subscription',
         label: 'Subscription',
-        icon: <CreditCard className="h-5 w-5" />,
+        // icon: <CreditCard className="h-5 w-5" />,
       });
     }
   } else {
     menuItems.push({
       href: '/dashboard',
       label: 'Dashboard',
-      icon: <LayoutDashboard className="h-5 w-5" />,
+      // icon: <LayoutDashboard className="h-5 w-5" />,
     });
     
     menuItems.push({
       href: '/my-bills',
       label: 'My Bills',
-      icon: <Receipt className="h-5 w-5" />,
+      // icon: <Receipt className="h-5 w-5" />,
     });
     
     if (isAdminOrOwner) {
@@ -84,27 +84,32 @@ const Navbar = () => {
         {
           href: '/bills',
           label: 'Manage Bills',
-          icon: <Receipt className="h-5 w-5" />,
+          // icon: <Receipt className="h-5 w-5" />,
         },
         {
           href: '/manage-flats',
           label: 'Manage Flats',
-          icon: <Building className="h-5 w-5" />,
+          // icon: <Building className="h-5 w-5" />,
         },
         {
           href: '/invite-users',
           label: 'Invite Users',
-          icon: <User className="h-5 w-5" />,
+          // icon: <User className="h-5 w-5" />,
         },
         {
           href: '/subscription',
           label: 'Subscription',
-          icon: <CreditCard className="h-5 w-5" />,
+          // icon: <CreditCard className="h-5 w-5" />,
         },
         {
           href: '/manage-charges',
           label: 'manage-charges',
-          icon: <CreditCard className="h-5 w-5" />,
+          // icon: <CreditCard className="h-5 w-5" />,
+        },
+        {
+          href: '/payment-history',
+          label: 'payment-history',
+          // icon: <CreditCard className="h-5 w-5" />,
         }
       );
     }

@@ -230,7 +230,7 @@ const Bills = () => {
           </TabsList>
           
           <TabsContent value="my-bills">
-            <BillSummaryCards bills={filterBills(userBills || [])} currency="৳" />
+            <BillSummaryCards bills={filterBills(userBills || [])} currency="৳ " />
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {filterBills(userBills || []).length > 0 ? (
@@ -262,7 +262,7 @@ const Bills = () => {
                       <div className="space-y-4">
                         <div>
                           <p className="text-sm font-medium">Amount Due</p>
-                          <p className="text-2xl font-bold">৳{bill.total_amount}</p>
+                          <p className="text-2xl font-bold">৳ {bill.total_amount}</p>
                         </div>
                         <div>
                           <p className="text-sm font-medium">Status</p>
@@ -279,13 +279,13 @@ const Bills = () => {
                             {bill.common_charges?.map((charge, idx) => (
                               <div key={`common-${idx}`} className="flex justify-between">
                                 <span>{charge.name}</span>
-                                <span>৳{charge.amount}</span>
+                                <span>৳ {charge.amount}</span>
                               </div>
                             ))}
                             {bill.flat_charges?.map((charge, idx) => (
                               <div key={`flat-${idx}`} className="flex justify-between">
                                 <span>{charge.name}</span>
-                                <span>৳{charge.amount}</span>
+                                <span>৳ {charge.amount}</span>
                               </div>
                             ))}
                           </div>
@@ -322,7 +322,7 @@ const Bills = () => {
 
           {isOwnerOrAdmin && (
             <TabsContent value="society-bills">
-              <BillSummaryCards bills={filterBills(societyBills || [])} currency="৳" />
+              <BillSummaryCards bills={filterBills(societyBills || [])} currency="৳ " />
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {filterBills(societyBills || []).length > 0 ? (
@@ -366,7 +366,7 @@ const Bills = () => {
                           <div className="space-y-4">
                             <div>
                               <p className="text-sm font-medium">Amount Due</p>
-                              <p className="text-2xl font-bold">৳{bill.total_amount}</p>
+                              <p className="text-2xl font-bold">৳ {bill.total_amount}</p>
                             </div>
                             <div>
                               <p className="text-sm font-medium">Status</p>
@@ -382,13 +382,13 @@ const Bills = () => {
                                 {bill.common_charges?.map((charge, idx) => (
                                   <div key={`common-${idx}`} className="flex justify-between">
                                     <span>{charge.name}</span>
-                                    <span>৳{charge.amount}</span>
+                                    <span>৳ {charge.amount}</span>
                                   </div>
                                 ))}
                                 {bill.flat_charges?.map((charge, idx) => (
                                   <div key={`flat-${idx}`} className="flex justify-between">
                                     <span>{charge.name}</span>
-                                    <span>৳{charge.amount}</span>
+                                    <span>৳ {charge.amount}</span>
                                   </div>
                                 ))}
                               </div>

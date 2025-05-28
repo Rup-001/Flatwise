@@ -120,7 +120,7 @@ const PaymentDue: React.FC = () => {
                     <strong>Registration Fee:</strong>
                   </p>
                   <p className="text-center text-3xl font-bold">
-                    {registrationFee.currency === '₹' ? '৳' : registrationFee.currency} {registrationFee.amount.toFixed(2)}
+                    {registrationFee.currency === '৳ ' ? '৳ ' : registrationFee.currency} {registrationFee.amount.toFixed(2)}
                   </p>
                 </div>
               )}

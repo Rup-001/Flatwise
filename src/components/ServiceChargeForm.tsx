@@ -227,7 +227,7 @@ const ServiceChargeForm: React.FC<ServiceChargeFormProps> = ({
     },
     {
       key: 'twoBHKCharge',
-      title: '2 BHK (₹)',
+      title: '2 BHK (৳ )',
       render: (value: any, record: any) => (
         <Input
           type="number"
@@ -240,7 +240,7 @@ const ServiceChargeForm: React.FC<ServiceChargeFormProps> = ({
     },
     {
       key: 'threeBHKCharge',
-      title: '3 BHK (₹)',
+      title: '3 BHK (৳ )',
       render: (value: any, record: any) => (
         <Input
           type="number"
@@ -253,7 +253,7 @@ const ServiceChargeForm: React.FC<ServiceChargeFormProps> = ({
     },
     {
       key: 'fourBHKCharge',
-      title: '4 BHK (₹)',
+      title: '4 BHK (৳ )',
       render: (value: any, record: any) => (
         <Input
           type="number"
@@ -276,7 +276,7 @@ const ServiceChargeForm: React.FC<ServiceChargeFormProps> = ({
           className="text-destructive hover:bg-destructive/10 hover:text-destructive"
         >
           <Trash2 className="h-4 w-4" />
-          Delete
+          
         </Button>
       )
     }
@@ -309,15 +309,15 @@ const ServiceChargeForm: React.FC<ServiceChargeFormProps> = ({
               <div className="flex flex-wrap gap-4 justify-center">
                 <div className="px-4 py-2 bg-white/80 backdrop-blur-sm rounded-md border border-primary-100 shadow-sm">
                   <div className="text-sm text-primary-600">2 BHK</div>
-                  <div className="font-semibold text-primary-900">₹{totals.twoBHK}</div>
+                  <div className="font-semibold text-primary-900">৳ {totals.twoBHK}</div>
                 </div>
                 <div className="px-4 py-2 bg-white/80 backdrop-blur-sm rounded-md border border-primary-100 shadow-sm">
                   <div className="text-sm text-primary-600">3 BHK</div>
-                  <div className="font-semibold text-primary-900">₹{totals.threeBHK}</div>
+                  <div className="font-semibold text-primary-900">৳ {totals.threeBHK}</div>
                 </div>
                 <div className="px-4 py-2 bg-white/80 backdrop-blur-sm rounded-md border border-primary-100 shadow-sm">
                   <div className="text-sm text-primary-600">4 BHK</div>
-                  <div className="font-semibold text-primary-900">₹{totals.fourBHK}</div>
+                  <div className="font-semibold text-primary-900">৳ {totals.fourBHK}</div>
                 </div>
               </div>
             </div>

@@ -175,7 +175,7 @@ const UserBills = () => {
           </Select>
         </div>
 
-        <BillSummaryCards bills={filteredUserBills} currency="৳" />
+        <BillSummaryCards bills={filteredUserBills} currency="৳ " />
         
         <section className="mb-12">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -211,7 +211,7 @@ const UserBills = () => {
                     <div className="space-y-4">
                       <div>
                         <p className="text-sm font-medium">Amount Due</p>
-                        <p className="text-2xl font-bold">৳{bill.total_amount}</p>
+                        <p className="text-2xl font-bold">৳ {bill.total_amount}</p>
                       </div>
                       <div>
                         <p className="text-sm font-medium">Status</p>
@@ -228,13 +228,13 @@ const UserBills = () => {
                           {bill.common_charges && bill.common_charges.map((charge, idx) => (
                             <div key={`common-${idx}`} className="flex justify-between">
                               <span>{charge.name}</span>
-                              <span>৳{charge.amount}</span>
+                              <span>৳ {charge.amount}</span>
                             </div>
                           ))}
                           {bill.flat_charges && bill.flat_charges.map((charge, idx) => (
                             <div key={`flat-${idx}`} className="flex justify-between">
                               <span>{charge.name}</span>
-                              <span>৳{charge.amount}</span>
+                              <span>৳ {charge.amount}</span>
                             </div>
                           ))}
                         </div>

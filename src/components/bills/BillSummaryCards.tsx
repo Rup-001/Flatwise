@@ -8,7 +8,7 @@ interface BillSummaryCardsProps {
   currency?: string; // Added for dynamic currency symbol
 }
 
-export const BillSummaryCards = ({ bills, currency = "৳" }: BillSummaryCardsProps) => {
+export const BillSummaryCards = ({ bills, currency = "৳ " }: BillSummaryCardsProps) => {
   const summary: BillSummary = bills.reduce((acc: BillSummary, bill) => ({
     totalBills: acc.totalBills + 1,
     paidBills: bill.status === 'PAID' ? acc.paidBills + 1 : acc.paidBills,
