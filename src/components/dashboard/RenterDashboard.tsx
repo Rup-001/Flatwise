@@ -81,7 +81,7 @@ const RenterDashboard = () => {
                 <AlertTriangle className="h-5 w-5 text-red-500 mr-2 mt-0.5" />
                 <div className="text-left">
                   <h4 className="font-medium text-red-700">Payment Due</h4>
-                  <p className="text-sm text-red-600">৳{dueAmount} due by {dueDate}</p>
+                  <p className="text-sm text-red-600">৳ {dueAmount} due by {dueDate}</p>
                   <Link to="/my-bills">
                     <Button variant="destructive" size="sm" className="mt-2">
                       Pay Now
@@ -122,7 +122,7 @@ const RenterDashboard = () => {
                       <div className="text-left">
                         <h4 className="font-medium">{format(parseISO(bill.bill_month), 'MMMM yyyy')}</h4>
                         <p className="text-sm text-muted-foreground">
-                          Amount: ৳{bill.total_amount}
+                          Amount: ৳ {bill.total_amount}
                         </p>
                       </div>
                       <Link to="/my-bills">
@@ -142,7 +142,7 @@ const RenterDashboard = () => {
                     <div className="text-left">
                       <h4 className="font-medium">{format(parseISO(payment.bill_month), 'MMMM yyyy')}</h4>
                       <p className="text-sm text-muted-foreground">
-                        Paid: ৳{payment.total_amount}
+                        Paid: ৳ {payment.total_amount}
                       </p>
                     </div>
                     <span className="px-2 py-1 bg-green-100 text-green-800 rounded text-xs font-medium">

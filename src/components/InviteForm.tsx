@@ -211,59 +211,8 @@ const InviteForm: React.FC<InviteFormProps> = ({
         </CardDescription>
       </CardHeader>
       <CardContent>
-        {showInvitedUsers && existingUsers && existingUsers.length > 0 && (
-          <div className="mb-8">
-            <h3 className="text-lg font-medium mb-4 capitalize">{type === 'owner' ? 'Owners' : 'Renters'} ({existingUsers.length})</h3>
-            <div className="space-y-3 bg-secondary/20 rounded-lg p-4">
-              {existingUsers.map((user) => (
-                <div key={user.id} className="flex items-center justify-between p-3 bg-white rounded-md border">
-                  <div className="flex items-center gap-3">
-                    <User className="h-5 w-5 text-primary/70" />
-                    <div>
-                      <p className="font-medium">{user.fullname}</p>
-                      <p className="text-sm text-muted-foreground">{user.email}</p>
-                      <div className="text-xs text-muted-foreground mt-1">
-                        {type === 'owner' && user.owned_flats && (
-                          <span>Flats: {user.owned_flats.map(flat => flat.number).join(', ')}</span>
-                        )}
-                        {type === 'renter' && user.rented_flats && (
-                          <span>Flats: {user.rented_flats.map((flat: any) => flat.number).join(', ')}</span>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    {getUserStatusBadge(user.status)}
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => user.status === 'ACTIVE' ? handleViewProfile(String(user.id)) : handleResendInvitation(String(user.id))}
-                      title={user.status === 'ACTIVE' ? "View Profile" : "Resend Invitation"}
-                    >
-                      {user.status === 'ACTIVE' ? (
-                        <ArrowRight className="h-4 w-4 text-primary" />
-                      ) : (
-                        <RefreshCw className="h-4 w-4 text-blue-500" />
-                      )}
-                    </Button>
-                    {user.status === 'PENDING' && (
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => handleCancelInvitation(String(user.id))}
-                        title="Cancel Invitation"
-                      >
-                        <X className="h-4 w-4 text-red-500" />
-                      </Button>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
 
-        <Form {...form}>
+      <Form {...form}>
           <div className="space-y-6">
             <h3 className="text-lg font-medium capitalize">Add New {type}s</h3>
             {users.map((user, index) => (
@@ -368,20 +317,20 @@ const InviteForm: React.FC<InviteFormProps> = ({
               type="button" 
               variant="outline" 
               onClick={handleAddUser}
-              className="w-full"
+              className=""
             >
               <Plus className="h-4 w-4 mr-2" />
               Add Another {type === 'owner' ? 'Owner' : 'Renter'}
             </Button>
             
-            <div className="flex justify-between mt-6">
-              <Button 
+            <div className="flex justify-end mt-6">
+              {/* <Button 
                 type="button" 
                 variant="outline"
                 onClick={onSkip}
               >
                 Skip
-              </Button>
+              </Button> */}
               
               <Button 
                 type="button" 
@@ -394,6 +343,60 @@ const InviteForm: React.FC<InviteFormProps> = ({
             </div>
           </div>
         </Form>
+        
+        {showInvitedUsers && existingUsers && existingUsers.length > 0 && (
+          <div className="mb-8">
+            <h3 className="text-lg font-medium mb-4 capitalize">{type === 'owner' ? 'Owners' : 'Renters'} ({existingUsers.length})</h3>
+            <div className="space-y-3 bg-secondary/20 rounded-lg p-4">
+              {existingUsers.map((user) => (
+                <div key={user.id} className="flex items-center justify-between p-3 bg-white rounded-md border">
+                  <div className="flex items-center gap-3">
+                    <User className="h-5 w-5 text-primary/70" />
+                    <div>
+                      <p className="font-medium">{user.fullname}</p>
+                      <p className="text-sm text-muted-foreground">{user.email}</p>
+                      <div className="text-xs text-muted-foreground mt-1">
+                        {type === 'owner' && user.owned_flats && (
+                          <span>Flats: {user.owned_flats.map(flat => flat.number).join(', ')}</span>
+                        )}
+                        {type === 'renter' && user.rented_flats && (
+                          <span>Flats: {user.rented_flats.map((flat: any) => flat.number).join(', ')}</span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    {getUserStatusBadge(user.status)}
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => user.status === 'ACTIVE' ? handleViewProfile(String(user.id)) : handleResendInvitation(String(user.id))}
+                      title={user.status === 'ACTIVE' ? "View Profile" : "Resend Invitation"}
+                    >
+                      {user.status === 'ACTIVE' ? (
+                        <ArrowRight className="h-4 w-4 text-primary" />
+                      ) : (
+                        <RefreshCw className="h-4 w-4 text-blue-500" />
+                      )}
+                    </Button>
+                    {user.status === 'PENDING' && (
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => handleCancelInvitation(String(user.id))}
+                        title="Cancel Invitation"
+                      >
+                        <X className="h-4 w-4 text-red-500" />
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        
       </CardContent>
     </Card>
   );

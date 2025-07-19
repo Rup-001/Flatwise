@@ -111,15 +111,15 @@ const Subscription = () => {
                       <div className="space-y-3">
                         <div className="flex justify-between border-b pb-2">
                           <span className="text-gray-600">Base Price</span>
-                          <span className="font-medium">৳{priceDetails.base_price}</span>
+                          <span className="font-medium">৳ {priceDetails.base_price}</span>
                         </div>
                         <div className="flex justify-between border-b pb-2">
                           <span className="text-gray-600">Tax</span>
-                          <span className="font-medium">৳{priceDetails.tax}</span>
+                          <span className="font-medium">৳ {priceDetails.tax}</span>
                         </div>
                         <div className="flex justify-between pt-2">
                           <span className="font-semibold">Total Price</span>
-                          <span className="font-semibold text-lg">৳{priceDetails.total_price}</span>
+                          <span className="font-semibold text-lg">৳ {priceDetails.total_price}</span>
                         </div>
                         
                         <div className="mt-6 pt-4 border-t">

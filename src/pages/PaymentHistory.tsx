@@ -113,7 +113,7 @@ const PaymentHistory = () => {
     {
       key: 'amount',
       title: 'Amount',
-      render: (amount: number) => `৳${amount}`,
+      render: (amount: number) => `৳ ${amount}`,
     },
     {
       key: 'status',

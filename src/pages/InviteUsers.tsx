@@ -177,7 +177,7 @@ const InviteUsers = () => {
                 ownersList={allUsers}
               />
               
-              <div className="flex justify-center mt-8">
+              {/* <div className="flex justify-center mt-8">
                 <Button 
                   variant="outline" 
                   onClick={handleComplete}
@@ -185,7 +185,7 @@ const InviteUsers = () => {
                 >
                   Complete Setup & Go to Dashboard
                 </Button>
-              </div>
+              </div> */}
             </TabsContent>
           </Tabs>
         </div>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { 
   User, 
   Building, 
@@ -737,7 +738,7 @@ const BuildingFormComponent: React.FC<BuildingFormProps> = ({ onSubmit, initialD
                   <FormLabel>Number of Flats</FormLabel>
                   <FormControl>
                     <Input 
-                      placeholder="1,2,3"
+                      placeholder="5"
                       type="number" 
                       min={1}
                       {...field} 
@@ -753,13 +754,17 @@ const BuildingFormComponent: React.FC<BuildingFormProps> = ({ onSubmit, initialD
             />
             
             <div className="flex justify-between mt-6">
-              <Button 
-                type="button" 
-                variant="outline" 
-                onClick={() => form.reset()}
-              >
-                Reset
-              </Button>
+              <div className="text-sm text-muted-foreground">
+              Already have an account?
+                              <Link to="/login" className="text-primary hover:underline font-medium">
+                                <Button
+                                 type="button" 
+                                variant="outline" 
+                                
+                                >login</Button>
+                              </Link>
+                            </div>
+              
               <Button type="submit">
                 Next <ChevronRight className="ml-2 h-4 w-4" />
               </Button>
@@ -848,21 +853,21 @@ const PaymentFormComponent: React.FC<PaymentFormProps> = ({
           <div className="space-y-2">
             <div className="flex justify-between">
               <span>Base Price:</span>
-              <span>₹{pricingInfo?.base_price || 0}</span>
+              <span>৳ {pricingInfo?.base_price || 0}</span>
             </div>
             <div className="flex justify-between">
               <span>Tax:</span>
-              <span>₹{pricingInfo?.tax || 0}</span>
+              <span>৳ {pricingInfo?.tax || 0}</span>
             </div>
             {discountInfo && (
               <div className="flex justify-between text-green-600">
                 <span>Discount:</span>
-                <span>-₹{discountInfo.discount}</span>
+                <span>-৳ {discountInfo.discount}</span>
               </div>
             )}
             <div className="border-t pt-2 mt-2 border-border/50 flex justify-between font-bold">
               <span>Total:</span>
-              <span>₹{discountInfo ? discountInfo.discounted_amount : (pricingInfo?.total_price || 0)}</span>
+              <span>৳ {discountInfo ? discountInfo.discounted_amount : (pricingInfo?.total_price || 0)}</span>
             </div>
           </div>
         </div>
