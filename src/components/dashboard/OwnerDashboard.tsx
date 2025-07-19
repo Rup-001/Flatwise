@@ -409,10 +409,10 @@ const OwnerDashboard = () => {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>tran_id</TableHead>
-                      <TableHead>amount</TableHead>
-                      <TableHead>payment_method</TableHead>
-                      <TableHead>payment_month</TableHead>
+                      <TableHead>Transaction ID</TableHead>
+                      <TableHead>Amount</TableHead>
+                      <TableHead>Payment Method</TableHead>
+                      <TableHead>Payment Month</TableHead>
                       <TableHead className="text-right">Actions</TableHead>
                     </TableRow>
                   </TableHeader>

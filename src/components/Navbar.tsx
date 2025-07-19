@@ -75,7 +75,7 @@ const Navbar = () => {
     
     menuItems.push({
       href: '/my-bills',
-      label: 'My Bills',
+      label: 'Bills',
       icon: <Receipt className="h-5 w-5" />,
     });
     
@@ -88,24 +88,24 @@ const Navbar = () => {
         },
         {
           href: '/manage-flats',
-          label: 'Manage Flats',
+          label: 'Flats',
           icon: <Building className="h-5 w-5" />,
         },
         {
           href: '/invite-users',
-          label: 'Invite Users',
+          label: 'Users',
           icon: <User className="h-5 w-5" />,
+        },
+        {
+          href: '/manage-charges',
+          label: 'Charges',
+          icon: <CreditCard className="h-5 w-5" />,
         },
         {
           href: '/subscription',
           label: 'Subscription',
           icon: <CreditCard className="h-5 w-5" />,
         },
-        {
-          href: '/manage-charges',
-          label: 'manage-charges',
-          icon: <CreditCard className="h-5 w-5" />,
-        }
       );
     }
   }
@@ -119,7 +119,7 @@ const Navbar = () => {
     .slice(0, 2);
 
   return (
-    <header className={`${showLimitedNavigation ? 'bg-gradient-to-r from-red-500 to-orange-500' : 'bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500'} sticky top-0 left-0 w-full z-50`}>
+    <header className={`${showLimitedNavigation ? 'bg-gradient-to-r from-red-500 to-orange-500' : 'bg-primary'} sticky top-0 left-0 w-full z-50`}>
       <div className="container max-w-screen-xl mx-auto px-4">
         <div className="h-16 flex items-center justify-between">
           <Link to={showLimitedNavigation ? "/payment-due" : auth.isAuthenticated ? "/dashboard" : "/"} className="font-bold text-xl text-white flex items-center">
