@@ -361,6 +361,11 @@ const ManageFlats = () => {
     
     return total;
   };
+  const typeOptions = {
+    "TWO_BHK": "2 BHK",
+    "THREE_BHK": "3 BHK",
+    "FOUR_BHK": "4 BHK"
+  };
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-purple-50 to-indigo-100">
@@ -384,7 +389,7 @@ const ManageFlats = () => {
               )}
             </div>
             <div className="flex gap-2">
-              <Button 
+              {/* <Button 
                 variant="outline" 
                 onClick={handleRefresh} 
                 disabled={isLoading}
@@ -396,7 +401,7 @@ const ManageFlats = () => {
                   <RefreshCw className="h-4 w-4" />
                 )}
                 Refresh
-              </Button>
+              </Button> */}
               <Link to="/invite-users">
                 <Button className="bg-purple-600 hover:bg-purple-700 shadow-lg flex items-center gap-2 rounded-full">
                   <Users className="h-4 w-4" />
@@ -508,14 +513,14 @@ const ManageFlats = () => {
                           <TableCell>
                             <div>
                               <div className="mb-1">
-                                <span className="font-medium">₹{basicCharge}</span>
+                                <span className="font-medium">৳ {basicCharge}</span>
                                 <span className="text-xs text-muted-foreground ml-1">basic</span>
                               </div>
                               {flat.user_service_charges.length > 0 && (
                                 <div className="flex flex-wrap gap-1 mt-1">
                                   {flat.user_service_charges.map(charge => (
                                     <Badge key={charge.id} variant="outline" className="text-xs">
-                                      {charge.predefined_service_charge.name}: ₹{charge.amount}
+                                      {charge.predefined_service_charge.name}: ৳ {charge.amount}
                                     </Badge>
                                   ))}
                                 </div>
@@ -551,7 +556,7 @@ const ManageFlats = () => {
                 </Table>
               </div>
               
-              <div className="flex justify-end mt-6">
+              {/* <div className="flex justify-end mt-6">
                 <Button 
                   onClick={handleSaveAll}
                   className="bg-purple-600 hover:bg-purple-700 shadow-md"
@@ -559,7 +564,7 @@ const ManageFlats = () => {
                   <Save className="h-4 w-4 mr-2" />
                   Save All Changes
                 </Button>
-              </div>
+              </div> */}
             </CardContent>
           </Card>
         )}
@@ -631,11 +636,23 @@ const ManageFlats = () => {
               
               <div>
                 <label className="text-sm font-medium mb-1 block">Type</label>
-                <Input 
+                {/* <Input 
                   value={editFlat.type || ''}
                   disabled
                   className="bg-gray-50"
-                />
+                /> */}
+                <select
+                  value={Object.keys(typeOptions).find(key => typeOptions[key] === editFlat.type) || ''}
+                  onChange={(e) => setEditFlat(prev => ({ ...prev, type: typeOptions[e.target.value] }))}
+                  className="bg-white border border-gray-300 text-sm rounded px-2 py-1 w-full"
+                >
+                  <option value="" disabled>Select type</option>
+                  {Object.entries(typeOptions).map(([key, label]) => (
+                    <option key={key} value={key}>{label}</option>
+                  ))}
+                </select>
+
+
               </div>
             </div>
           )}
@@ -681,7 +698,7 @@ const ManageFlats = () => {
             </div>
             
             <div>
-              <label className="text-sm font-medium mb-1 block">Amount (₹)</label>
+              <label className="text-sm font-medium mb-1 block">Amount (৳ )</label>
               <Input 
                 value={newCharge.amount}
                 onChange={(e) => setNewCharge(prev => ({...prev, amount: e.target.value}))}
@@ -709,7 +726,7 @@ const ManageFlats = () => {
                           {charge.predefined_service_charge.name}
                         </span>
                         <span className="text-xs text-muted-foreground ml-2">
-                          ₹{charge.amount}
+                          ৳ {charge.amount}
                         </span>
                       </div>
                       <Button

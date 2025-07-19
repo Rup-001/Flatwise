@@ -157,7 +157,7 @@ const OwnerDashboard = () => {
     {
       key: 'amount',
       title: 'Amount',
-      render: (value: number) => `₹${value}`,
+      render: (value: number) => `৳ ${value}`,
     },
     {
       key: 'status',
@@ -278,7 +278,7 @@ const OwnerDashboard = () => {
         <Card className="shadow-soft animate-fade-in" style={{ animationDelay: '450ms' }}>
           <CardContent className="pt-6">
             <div className="text-center">
-              <span className="text-3xl font-bold text-green-600">₹{stats.totalCollected}</span>
+              <span className="text-3xl font-bold text-green-600">৳ {stats.totalCollected}</span>
               <p className="text-sm text-muted-foreground mt-1">Total Collected</p>
               <Link to="/bills">
                 <Button variant="ghost" size="sm" className="mt-3 text-xs w-full">
@@ -295,13 +295,13 @@ const OwnerDashboard = () => {
               <span className="text-3xl font-bold text-amber-600">{stats.pendingFlats}</span>
               <p className="text-sm text-muted-foreground mt-1">Pending Payments</p>
               <p className="text-xs text-amber-600 font-medium mt-3">
-                ₹{stats.pendingAmount} to be collected
+                ৳ {stats.pendingAmount} to be collected
               </p>
             </div>
           </CardContent>
         </Card>
         
-        <Card className="shadow-soft animate-fade-in" style={{ animationDelay: '550ms' }}>
+        {/* <Card className="shadow-soft animate-fade-in" style={{ animationDelay: '550ms' }}>
           <CardContent className="pt-6">
             <div className="text-center">
               <span className="text-3xl font-bold text-red-600">{stats.overdueFlats}</span>
@@ -311,17 +311,17 @@ const OwnerDashboard = () => {
               </Button>
             </div>
           </CardContent>
-        </Card>
+        </Card> */}
       </div>
       
       <div className="border-t pt-8 mb-8">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-2xl font-semibold text-left">All Resident Payments</h2>
           <div className="flex gap-2">
-            <Button variant="outline" size="sm" className="gap-2">
+            {/* <Button variant="outline" size="sm" className="gap-2">
               <RefreshCw className="h-4 w-4" />
               Refresh
-            </Button>
+            </Button> */}
             <Link to="/bills">
               <Button variant="default" size="sm" className="gap-2">
                 <Receipt className="h-4 w-4" />
@@ -423,7 +423,7 @@ const OwnerDashboard = () => {
                             <div className="font-medium">{payment.tran_id}</div>
                           </TableCell>
                           <TableCell>
-                            <div className="font-medium">৳{payment.amount}</div>
+                            <div className="font-medium">৳ {payment.amount}</div>
                           </TableCell>
                           <TableCell>
                             <div className="font-medium">{payment.payment_method}</div>

@@ -170,7 +170,7 @@ const ServiceChargePayments = () => {
         doc.text(payment.payment_date ? format(new Date(payment.payment_date), 'PP') : "N/A", 20, y);
         doc.text(flat?.number || `${payment.flat_id}`, 60, y);
         doc.text(format(new Date(payment.payment_month), 'MMM yyyy'), 100, y);
-        doc.text(`₹ ${payment.amount}`, 140, y);
+        doc.text(`৳  ${payment.amount}`, 140, y);
         
         if (payment.status === "SUCCESS" || payment.status === "COMPLETED") {
           doc.setTextColor(0, 128, 0);
@@ -362,7 +362,7 @@ const ServiceChargePayments = () => {
                         <div className="space-y-3">
                           <div className="flex justify-between items-center">
                             <span className="text-sm text-muted-foreground">Amount</span>
-                            <span className="font-semibold">₹ {payment.amount}</span>
+                            <span className="font-semibold">৳  {payment.amount}</span>
                           </div>
                           
                           {payment.payment_date && (

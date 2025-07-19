@@ -123,7 +123,7 @@ const Dashboard = () => {
                                   <Clock className="h-4 w-4 mr-2 text-amber-600" />
                                   Payment Due for {format(parseISO(bill.bill_month), 'MMMM yyyy')}
                                 </h3>
-                                <p className="text-sm text-amber-700 mt-1">Amount: ৳{bill.total_amount}</p>
+                                <p className="text-sm text-amber-700 mt-1">Amount: ৳ {bill.total_amount}</p>
                               </div>
                               <Link to="/my-bills">
                                 <Button size="sm" className="bg-amber-600 hover:bg-amber-700">
@@ -154,7 +154,7 @@ const Dashboard = () => {
                                 {recentPayments.map((payment) => (
                                   <div key={payment.id} className="flex justify-between text-sm text-green-700 py-1 border-t border-green-200">
                                     <span>{format(parseISO(payment.bill_month), 'MMMM yyyy')}</span>
-                                    <span>৳{payment.total_amount}</span>
+                                    <span>৳ {payment.total_amount}</span>
                                   </div>
                                 ))}
                               </div>
